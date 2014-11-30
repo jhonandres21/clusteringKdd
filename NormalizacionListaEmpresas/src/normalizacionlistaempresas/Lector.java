@@ -2,6 +2,7 @@ package normalizacionlistaempresas;
 
 import java.io.*;
 import java.util.ArrayList;
+import sun.misc.FloatingDecimal;
 
 public class Lector {
 
@@ -31,7 +32,19 @@ public class Lector {
 
                 cadena = linea.split(",");
                 //a partir del índice 3 tenemos el nombre de la empresa y los demás atributos que nos interesan
-                System.out.println(cadena[3]);
+                
+                Empresa empresa = new Empresa();
+                empresa.setNombreEmpresa(cadena[3]);
+                empresa.setIngresosOperacionales(Double.parseDouble(cadena[4].replace(".", "")));
+                empresa.setVariacionIngresos(cadena[5]);
+                empresa.setUtilidadOperacional(Double.parseDouble(cadena[6].replace(".", "")));
+                empresa.setUtilidadNeta(Double.parseDouble(cadena[7].replace(".", "")));
+                empresa.setActivoTotal(Double.parseDouble(cadena[8].replace(".", "")));
+                empresa.setPasivoTotal(Double.parseDouble(cadena[9].replace(".", "")));
+                empresa.setPatrimonioTotal(Double.parseDouble(cadena[10].replace(".", "")));
+
+                this.imprimirEmpresa(empresa);
+
             }
 
         } catch (Exception e) {
@@ -48,5 +61,12 @@ public class Lector {
         }
 
     }//fin metodo leerArchivo
+
+    public void imprimirEmpresa(Empresa empresa) {
+
+        System.out.println(empresa.getNombreEmpresa() + " " + empresa.getIngresosOperacionales() + " " + empresa.getVariacionIngresos()
+                + " " + empresa.getUtilidadOperacional() + " " + empresa.getUtilidadNeta() + " " + empresa.getActivoTotal()
+                + " " + empresa.getPasivoTotal() + " " + empresa.getPatrimonioTotal());
+    }
 
 }

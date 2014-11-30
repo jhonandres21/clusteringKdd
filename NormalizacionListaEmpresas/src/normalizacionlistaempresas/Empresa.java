@@ -2,9 +2,10 @@ package normalizacionlistaempresas;
 
 public class Empresa {
 
-    String nombreEmpresa = "";
-    long ingresosOperacionales, variacionIngresos, utilidadOperacional, utilidadNeta, activoTotal;
-    long pasivoTotal, patrimonioTotal;
+    private String nombreEmpresa = "";
+    private Double ingresosOperacionales;
+    private String variacionIngresos;
+    private Double utilidadOperacional, utilidadNeta, activoTotal, pasivoTotal, patrimonioTotal;
 
     public Empresa() {
     }
@@ -17,59 +18,60 @@ public class Empresa {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    public long getIngresosOperacionales() {
+    public Double getIngresosOperacionales() {
         return ingresosOperacionales;
     }
 
-    public void setIngresosOperacionales(long ingresosOperacionales) {
+    public void setIngresosOperacionales(Double ingresosOperacionales) {
         this.ingresosOperacionales = ingresosOperacionales;
     }
 
-    public long getVariacionIngresos() {
+    public String getVariacionIngresos() {
         return variacionIngresos;
     }
 
-    public void setVariacionIngresos(long variacionIngresos) {
+    public void setVariacionIngresos(String variacionIngresos) {
         this.variacionIngresos = variacionIngresos;
     }
 
-    public long getUtilidadOperacional() {
+    public Double getUtilidadOperacional() {
         return utilidadOperacional;
     }
 
-    public void setUtilidadOperacional(long utilidadOperacional) {
+    public void setUtilidadOperacional(Double utilidadOperacional) {
         this.utilidadOperacional = utilidadOperacional;
     }
 
-    public long getUtilidadNeta() {
+    public Double getUtilidadNeta() {
         return utilidadNeta;
     }
 
-    public void setUtilidadNeta(long utilidadNeta) {
+    public void setUtilidadNeta(Double utilidadNeta) {
         this.utilidadNeta = utilidadNeta;
     }
 
-    public long getActivoTotal() {
+    public Double getActivoTotal() {
         return activoTotal;
     }
 
-    public void setActivoTotal(long activoTotal) {
+    public void setActivoTotal(Double activoTotal) {
         this.activoTotal = activoTotal;
     }
 
-    public long getPasivoTotal() {
+    public Double getPasivoTotal() {
         return pasivoTotal;
     }
 
-    public void setPasivoTotal(long pasivoTotal) {
+    public void setPasivoTotal(Double pasivoTotal) {
         this.pasivoTotal = pasivoTotal;
     }
 
-    public long getPatrimonioTotal() {
+    public Double getPatrimonioTotal() {
         return patrimonioTotal;
     }
 
-    public void setPatrimonioTotal(long patrimonioTotal) {
+    public void setPatrimonioTotal(Double patrimonioTotal) {
         this.patrimonioTotal = patrimonioTotal;
     }
+   
 }
