@@ -3,9 +3,9 @@ package normalizacionlistaempresas;
 public class Empresa {
 
     private String nombreEmpresa = "";
-    private Long ingresosOperacionales;
+    private float ingresosOperacionales;
     private String variacionIngresos;
-    private Long utilidadOperacional, utilidadNeta, activoTotal, pasivoTotal, patrimonioTotal;
+    private float utilidadOperacional, utilidadNeta, activoTotal, pasivoTotal, patrimonioTotal;
 
     public Empresa() {
     }
@@ -18,11 +18,11 @@ public class Empresa {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    public Long getIngresosOperacionales() {
+    public float getIngresosOperacionales() {
         return ingresosOperacionales;
     }
 
-    public void setIngresosOperacionales(Long ingresosOperacionales) {
+    public void setIngresosOperacionales(float ingresosOperacionales) {
         this.ingresosOperacionales = ingresosOperacionales;
     }
 
@@ -34,43 +34,43 @@ public class Empresa {
         this.variacionIngresos = variacionIngresos;
     }
 
-    public Long getUtilidadOperacional() {
+    public float getUtilidadOperacional() {
         return utilidadOperacional;
     }
 
-    public void setUtilidadOperacional(Long utilidadOperacional) {
+    public void setUtilidadOperacional(float utilidadOperacional) {
         this.utilidadOperacional = utilidadOperacional;
     }
 
-    public Long getUtilidadNeta() {
+    public float getUtilidadNeta() {
         return utilidadNeta;
     }
 
-    public void setUtilidadNeta(Long utilidadNeta) {
+    public void setUtilidadNeta(float utilidadNeta) {
         this.utilidadNeta = utilidadNeta;
     }
 
-    public Long getActivoTotal() {
+    public float getActivoTotal() {
         return activoTotal;
     }
 
-    public void setActivoTotal(Long activoTotal) {
+    public void setActivoTotal(float activoTotal) {
         this.activoTotal = activoTotal;
     }
 
-    public Long getPasivoTotal() {
+    public float getPasivoTotal() {
         return pasivoTotal;
     }
 
-    public void setPasivoTotal(Long pasivoTotal) {
+    public void setPasivoTotal(float pasivoTotal) {
         this.pasivoTotal = pasivoTotal;
     }
 
-    public Long getPatrimonioTotal() {
+    public float getPatrimonioTotal() {
         return patrimonioTotal;
     }
 
-    public void setPatrimonioTotal(Long patrimonioTotal) {
+    public void setPatrimonioTotal(float patrimonioTotal) {
         this.patrimonioTotal = patrimonioTotal;
     }
 

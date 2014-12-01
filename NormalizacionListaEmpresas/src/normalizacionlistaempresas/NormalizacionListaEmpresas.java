@@ -9,6 +9,7 @@ public class NormalizacionListaEmpresas {
 
         Lector lector = new Lector();
         lector.leerArchivo();
+        lector.normalizacionDatos();
         lector.escribirArchivo();
     }
 

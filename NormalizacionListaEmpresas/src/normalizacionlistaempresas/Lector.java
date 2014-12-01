@@ -10,6 +10,7 @@ public class Lector {
     private BufferedReader bufferedReader = null;
     private ArrayList<Empresa> empresas;
     private Empresa empresa;
+    private int numeroRegistros = 0;
 
     public Lector() {
         empresas = new ArrayList<>();
@@ -37,13 +38,13 @@ public class Lector {
 
                     empresa = new Empresa();
                     empresa.setNombreEmpresa(cadena[3]);
-                    empresa.setIngresosOperacionales(Long.parseLong(cadena[4].replace(".", "")));
+                    empresa.setIngresosOperacionales(Float.parseFloat(cadena[4].replace(".", "")));
                     empresa.setVariacionIngresos(cadena[5]);
-                    empresa.setUtilidadOperacional(Long.parseLong(cadena[6].replace(".", "")));
-                    empresa.setUtilidadNeta(Long.parseLong(cadena[7].replace(".", "")));
-                    empresa.setActivoTotal(Long.parseLong(cadena[8].replace(".", "")));
-                    empresa.setPasivoTotal(Long.parseLong(cadena[9].replace(".", "")));
-                    empresa.setPatrimonioTotal(Long.parseLong(cadena[10].replace(".", "")));
+                    empresa.setUtilidadOperacional(Float.parseFloat(cadena[6].replace(".", "")));
+                    empresa.setUtilidadNeta(Float.parseFloat(cadena[7].replace(".", "")));
+                    empresa.setActivoTotal(Float.parseFloat(cadena[8].replace(".", "")));
+                    empresa.setPasivoTotal(Float.parseFloat(cadena[9].replace(".", "")));
+                    empresa.setPatrimonioTotal(Float.parseFloat(cadena[10].replace(".", "")));
                     empresas.add(empresa);
                     //this.imprimirEmpresa(empresa);
                 }
@@ -63,6 +64,69 @@ public class Lector {
         }
 
     }//fin metodo leerArchivo
+
+    public void normalizacionDatos() {
+
+        float media[] = this.calculoMedia();
+        float desviacionEstandar[] = this.calculoDesviacionEstandar(media);
+
+        for (int i = 0; i < empresas.size(); i++) {
+
+            empresas.get(i).setIngresosOperacionales((empresas.get(i).getIngresosOperacionales() - media[0]) / desviacionEstandar[0]);
+            //empresas.get(i).setVariacionIngresos((empresas.get(i).getVariacionIngresos() - media[1]) / desviacionEstandar[1]);
+            empresas.get(i).setUtilidadOperacional((empresas.get(i).getUtilidadOperacional() - media[2]) / desviacionEstandar[2]);
+            empresas.get(i).setUtilidadNeta((empresas.get(i).getUtilidadNeta() - media[3]) / desviacionEstandar[3]);
+            empresas.get(i).setActivoTotal((empresas.get(i).getActivoTotal() - media[4]) / desviacionEstandar[4]);
+            empresas.get(i).setPasivoTotal((empresas.get(i).getPasivoTotal() - media[5]) / desviacionEstandar[5]);
+            empresas.get(i).setPatrimonioTotal((empresas.get(i).getPatrimonioTotal() - media[6]) / desviacionEstandar[6]);
+        }
+    }
+
+    private float[] calculoMedia() {
+        //Calculamos la media para cada variable, exceptuamos por ahora VariacionIngresos
+        //tenemos 7 atributos por lo tanto tenemos 7 medias
+        float media[] = new float[7];
+        float sumatoria[] = new float[7];
+        int n = 0;
+
+        for (int j = 0; j < 7; j++) {
+
+            for (int i = 0; i < empresas.size(); i++) {
+
+                sumatoria[0] += empresas.get(i).getIngresosOperacionales();
+                //sumatoria[1] += empresas.get(i).getVariacionIngresos();
+                sumatoria[2] += empresas.get(i).getUtilidadOperacional();
+                sumatoria[3] += empresas.get(i).getUtilidadNeta();
+                sumatoria[4] += empresas.get(i).getActivoTotal();
+                sumatoria[5] += empresas.get(i).getPasivoTotal();
+                sumatoria[6] += empresas.get(i).getPatrimonioTotal();
+                n++;
+            }
+            //System.out.println("N = " + n + "; " + "Sumatoria = " + sumatoria[j]);
+            media[j] = ((float) 1 / n) * sumatoria[j];
+            numeroRegistros = n;
+            n = 0;
+            //System.out.println("Media #" + j + " = " + media[j]);
+        }
+        return media;
+    }
+
+    private float[] calculoDesviacionEstandar(float media[]) {
+
+        float desviacionEstandar[] = new float[7];
+
+        for (int i = 0; i < empresas.size(); i++) {
+
+            desviacionEstandar[0] += ((float) 1 / numeroRegistros) * (empresas.get(i).getIngresosOperacionales() - media[0]);
+            //desviacionEstandar[1] += (1 / numeroRegistros) * (empresas.get(i).getVariacionIngresos()- media[1]);
+            desviacionEstandar[2] += ((float) 1 / numeroRegistros) * (empresas.get(i).getUtilidadOperacional() - media[2]);
+            desviacionEstandar[3] += ((float) 1 / numeroRegistros) * (empresas.get(i).getUtilidadNeta() - media[3]);
+            desviacionEstandar[4] += ((float) 1 / numeroRegistros) * (empresas.get(i).getActivoTotal() - media[4]);
+            desviacionEstandar[5] += ((float) 1 / numeroRegistros) * (empresas.get(i).getPasivoTotal() - media[5]);
+            desviacionEstandar[6] += ((float) 1 / numeroRegistros) * (empresas.get(i).getPatrimonioTotal() - media[6]);
+        }
+        return desviacionEstandar;
+    }
 
     public void escribirArchivo() {
 
