@@ -34,7 +34,7 @@ public class Lector {
                 cadena = linea.split(",");
                 //a partir del índice 3 tenemos el nombre de la empresa y los demás atributos que nos interesan
 
-                if (!cadena[5].equalsIgnoreCase("nd")) {
+                if (!(cadena[5].equalsIgnoreCase("nd") || cadena[5].equals(""))) {
 
                     empresa = new Empresa();
                     empresa.setNombreEmpresa(cadena[3]);
@@ -73,7 +73,10 @@ public class Lector {
         for (int i = 0; i < empresas.size(); i++) {
 
             empresas.get(i).setIngresosOperacionales((empresas.get(i).getIngresosOperacionales() - media[0]) / desviacionEstandar[0]);
-            //empresas.get(i).setVariacionIngresos((empresas.get(i).getVariacionIngresos() - media[1]) / desviacionEstandar[1]);
+            String split[] = empresas.get(i).getVariacionIngresos().split("%");
+            float valor = Float.parseFloat(split[0]);
+            float porcentaje = valor / 100;
+            empresas.get(i).setVariacionIngresos("" + ((porcentaje - media[1]) / desviacionEstandar[1]));
             empresas.get(i).setUtilidadOperacional((empresas.get(i).getUtilidadOperacional() - media[2]) / desviacionEstandar[2]);
             empresas.get(i).setUtilidadNeta((empresas.get(i).getUtilidadNeta() - media[3]) / desviacionEstandar[3]);
             empresas.get(i).setActivoTotal((empresas.get(i).getActivoTotal() - media[4]) / desviacionEstandar[4]);
@@ -83,31 +86,33 @@ public class Lector {
     }
 
     private float[] calculoMedia() {
-        //Calculamos la media para cada variable, exceptuamos por ahora VariacionIngresos
+
         //tenemos 7 atributos por lo tanto tenemos 7 medias
         float media[] = new float[7];
         float sumatoria[] = new float[7];
         int n = 0;
 
-        for (int j = 0; j < 7; j++) {
+        for (int i = 0; i < empresas.size(); i++) {
 
-            for (int i = 0; i < empresas.size(); i++) {
-
-                sumatoria[0] += empresas.get(i).getIngresosOperacionales();
-                //sumatoria[1] += empresas.get(i).getVariacionIngresos();
-                sumatoria[2] += empresas.get(i).getUtilidadOperacional();
-                sumatoria[3] += empresas.get(i).getUtilidadNeta();
-                sumatoria[4] += empresas.get(i).getActivoTotal();
-                sumatoria[5] += empresas.get(i).getPasivoTotal();
-                sumatoria[6] += empresas.get(i).getPatrimonioTotal();
-                n++;
-            }
-            //System.out.println("N = " + n + "; " + "Sumatoria = " + sumatoria[j]);
-            media[j] = ((float) 1 / n) * sumatoria[j];
-            numeroRegistros = n;
-            n = 0;
-            //System.out.println("Media #" + j + " = " + media[j]);
+            sumatoria[0] += empresas.get(i).getIngresosOperacionales();
+            String split[] = empresas.get(i).getVariacionIngresos().split("%");
+            float valor = Float.parseFloat(split[0]);
+            float porcentaje = valor / 100;
+            sumatoria[1] += porcentaje;
+            sumatoria[2] += empresas.get(i).getUtilidadOperacional();
+            sumatoria[3] += empresas.get(i).getUtilidadNeta();
+            sumatoria[4] += empresas.get(i).getActivoTotal();
+            sumatoria[5] += empresas.get(i).getPasivoTotal();
+            sumatoria[6] += empresas.get(i).getPatrimonioTotal();
+            n++;
         }
+
+        for (int j = 0; j < 7; j++) {
+            media[j] = ((float) 1 / n) * sumatoria[j];
+        }
+
+        numeroRegistros = n;
+
         return media;
     }
 
@@ -118,13 +123,17 @@ public class Lector {
         for (int i = 0; i < empresas.size(); i++) {
 
             desviacionEstandar[0] += ((float) 1 / numeroRegistros) * (empresas.get(i).getIngresosOperacionales() - media[0]);
-            //desviacionEstandar[1] += (1 / numeroRegistros) * (empresas.get(i).getVariacionIngresos()- media[1]);
+            String split[] = empresas.get(i).getVariacionIngresos().split("%");
+            float valor = Float.parseFloat(split[0]);
+            float porcentaje = valor / 100;
+            desviacionEstandar[1] += ((float) 1 / numeroRegistros) * (porcentaje - media[1]);
             desviacionEstandar[2] += ((float) 1 / numeroRegistros) * (empresas.get(i).getUtilidadOperacional() - media[2]);
             desviacionEstandar[3] += ((float) 1 / numeroRegistros) * (empresas.get(i).getUtilidadNeta() - media[3]);
             desviacionEstandar[4] += ((float) 1 / numeroRegistros) * (empresas.get(i).getActivoTotal() - media[4]);
             desviacionEstandar[5] += ((float) 1 / numeroRegistros) * (empresas.get(i).getPasivoTotal() - media[5]);
             desviacionEstandar[6] += ((float) 1 / numeroRegistros) * (empresas.get(i).getPatrimonioTotal() - media[6]);
         }
+
         return desviacionEstandar;
     }
 
