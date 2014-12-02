@@ -1,6 +1,7 @@
 package normalizacionlistaempresas;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Lector {
@@ -149,9 +150,14 @@ public class Lector {
 
             for (Empresa empresa1 : empresas) {
 
-                pw.println("" + empresa1.getIngresosOperacionales() + " " + empresa1.getVariacionIngresos()
-                        + " " + empresa1.getUtilidadOperacional() + " " + empresa1.getUtilidadNeta() + " " + empresa1.getActivoTotal()
-                        + " " + empresa1.getPasivoTotal() + " " + empresa1.getPatrimonioTotal());
+                DecimalFormat df = new DecimalFormat("#");
+                df.setMaximumFractionDigits(8);
+                //System.out.println(df.format(myvalue));
+
+                pw.println("" + df.format(empresa1.getIngresosOperacionales()) + " " + empresa1.getVariacionIngresos()
+                        + " " + df.format(empresa1.getUtilidadOperacional()) + " " + df.format(empresa1.getUtilidadNeta())
+                        + " " + df.format(empresa1.getActivoTotal()) + " " + df.format(empresa1.getPasivoTotal())
+                        + " " + df.format(empresa1.getPatrimonioTotal()));
             }
 
         } catch (Exception e) {
