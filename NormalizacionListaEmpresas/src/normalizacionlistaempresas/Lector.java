@@ -76,7 +76,7 @@ public class Lector {
             String split[] = empresas.get(i).getVariacionIngresos().split("%");
             float valor = Float.parseFloat(split[0]);
             float porcentaje = valor / 100;
-            empresas.get(i).setVariacionIngresos("" + ((porcentaje - media[1]) / desviacionEstandar[1]));
+            empresas.get(i).setVariacionIngresos("" + porcentaje);
             empresas.get(i).setUtilidadOperacional((empresas.get(i).getUtilidadOperacional() - media[2]) / desviacionEstandar[2]);
             empresas.get(i).setUtilidadNeta((empresas.get(i).getUtilidadNeta() - media[3]) / desviacionEstandar[3]);
             empresas.get(i).setActivoTotal((empresas.get(i).getActivoTotal() - media[4]) / desviacionEstandar[4]);
@@ -95,10 +95,10 @@ public class Lector {
         for (int i = 0; i < empresas.size(); i++) {
 
             sumatoria[0] += empresas.get(i).getIngresosOperacionales();
-            String split[] = empresas.get(i).getVariacionIngresos().split("%");
-            float valor = Float.parseFloat(split[0]);
-            float porcentaje = valor / 100;
-            sumatoria[1] += porcentaje;
+//            String split[] = empresas.get(i).getVariacionIngresos().split("%");
+//            float valor = Float.parseFloat(split[0]);
+//            float porcentaje = valor / 100;
+//            sumatoria[1] += porcentaje;
             sumatoria[2] += empresas.get(i).getUtilidadOperacional();
             sumatoria[3] += empresas.get(i).getUtilidadNeta();
             sumatoria[4] += empresas.get(i).getActivoTotal();
@@ -123,10 +123,10 @@ public class Lector {
         for (int i = 0; i < empresas.size(); i++) {
 
             desviacionEstandar[0] += ((float) 1 / numeroRegistros) * (empresas.get(i).getIngresosOperacionales() - media[0]);
-            String split[] = empresas.get(i).getVariacionIngresos().split("%");
-            float valor = Float.parseFloat(split[0]);
-            float porcentaje = valor / 100;
-            desviacionEstandar[1] += ((float) 1 / numeroRegistros) * (porcentaje - media[1]);
+//            String split[] = empresas.get(i).getVariacionIngresos().split("%");
+//            float valor = Float.parseFloat(split[0]);
+//            float porcentaje = valor / 100;
+//            desviacionEstandar[1] += ((float) 1 / numeroRegistros) * (porcentaje - media[1]);
             desviacionEstandar[2] += ((float) 1 / numeroRegistros) * (empresas.get(i).getUtilidadOperacional() - media[2]);
             desviacionEstandar[3] += ((float) 1 / numeroRegistros) * (empresas.get(i).getUtilidadNeta() - media[3]);
             desviacionEstandar[4] += ((float) 1 / numeroRegistros) * (empresas.get(i).getActivoTotal() - media[4]);
