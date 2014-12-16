@@ -1,6 +1,6 @@
 package normalizacionlistaempresas;
 
-public class NormalizacionListaEmpresas {
+public class Main {
 
     /**
      * @param args the command line arguments
@@ -8,9 +8,8 @@ public class NormalizacionListaEmpresas {
     public static void main(String[] args) {
 
         Lector lector = new Lector();
-        lector.leerArchivo();
-        lector.normalizacionDatos();
-        lector.escribirArchivo();
+        NormalizacionEmpresas normalizacion = new NormalizacionEmpresas(lector.leerArchivo());
+        lector.escribirArchivo(normalizacion.normalizacionDatos());
     }
 
 }
