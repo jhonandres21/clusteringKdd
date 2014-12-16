@@ -75,9 +75,27 @@ public class Lector {
 
         try {
             //Abro stream, crea el fichero si no existe
-            fileWriter = new FileWriter("C:\\Users\\John\\Desktop\\clusteringKdd\\Listado Empresas - Normalizado.txt");
+            fileWriter = new FileWriter("C:\\Users\\John\\Desktop\\clusteringKdd\\Listado Empresas - Normalizado.arff");
             pw = new PrintWriter(fileWriter);
 
+            pw.println("% 1. Título: 500 Empresas más exitosas del Valle\n");
+            pw.println("%");
+            pw.println("% 2. Fuentes:");
+            pw.println("%      (a) Creador: J Medina, J Olaya, L Murillo, E Llanos.");
+            pw.println("%      (b) Donador: El País (http://www.elpais.com.co/elpais/500-empresas/listado)");
+            pw.println("%      (c) Fecha: 16 Diciembre, 2014");
+            pw.println("%");
+            pw.println("@RELATION Empresas");
+            pw.println("");
+            pw.println("@ATTRIBUTE ingresosoperacionales NUMERIC");
+            pw.println("@ATTRIBUTE variacioningresos NUMERIC");
+            pw.println("@ATTRIBUTE utilidadoperacional NUMERIC");
+            pw.println("@ATTRIBUTE utilidadneta NUMERIC");
+            pw.println("@ATTRIBUTE activototal NUMERIC");
+            pw.println("@ATTRIBUTE pasivototal NUMERIC");
+            pw.println("@ATTRIBUTE patrimoniototal NUMERIC");
+            pw.println("");
+            pw.println("@DATA");
             for (Empresa empresa1 : empresas) {
 
                 //Conversion de expresión científica a decimal de 10 posiciones 
@@ -88,10 +106,8 @@ public class Lector {
                 String pasivoTotal = new BigDecimal(empresa1.getPasivoTotal(), new MathContext(10)).toPlainString();
                 String patrimonioTotal = new BigDecimal(empresa1.getPatrimonioTotal(), new MathContext(10)).toPlainString();
 
-                pw.println("" + ingresosOperacionales + " " + empresa1.getVariacionIngresos()
-                        + " " + utilidadOperacional + " " + utilidadNeta
-                        + " " + activoTotal + " " + pasivoTotal
-                        + " " + patrimonioTotal);
+                pw.println("" + ingresosOperacionales + ", " + empresa1.getVariacionIngresos() + ", " + utilidadOperacional + ", " + utilidadNeta
+                        + ", " + activoTotal + ", " + pasivoTotal + ", " + patrimonioTotal);
             }
 
         } catch (Exception e) {
